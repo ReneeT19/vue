@@ -2,8 +2,8 @@
     <div class="job-list">
         <p>Ordered by {{ order }}</p>
         <ul>
-            <li v-for="job in jobs" :key="job.id">
-                <h2>{{ job.title }} in {{ job.location }}</h2>
+            <li v-for="job in orderedJobs" :key="job.id">
+                <h2>{{ job.title }} at {{ job.location }}</h2>
                 <div class="salary">
                     <p>{{ job.salary }} rupees</p>
                 </div>
@@ -20,7 +20,7 @@
 <script lang="ts">
 import Job from '@/types/Job'
 import OrderTerm from '@/types/OrderTerm'
-import { defineComponent, PropType } from 'vue'
+import { defineComponent, PropType, computed } from 'vue'
 
 
 export default defineComponent({
@@ -34,8 +34,18 @@ export default defineComponent({
             required: true,
             type: String as PropType<OrderTerm>
         }
-    }
-
+    },
+    //to use computed value, we need setup function;
+    //use Types (Job) inside computed value
+    setup(props) {
+        const orderedJobs = computed(() => {
+            //get a temporary new array instead of mutating the original array: [...]
+            return [...props.jobs].sort((a: Job, b: Job) => {
+                return a[props.order] > b[props.order] ? 1 : -1 //if true, return 1, a and b switch places
+            })
+        })
+        return { orderedJobs }
+    },
 })
 </script>
 
