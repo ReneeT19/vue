@@ -1,17 +1,18 @@
 <template>
     <div class="job-list">
-        <p>Ordered by {{ order }}</p>
-        <ul>
+        <h3>Ordered by {{ order }}</h3>
+        <transition-group name="list" tag="ul">
             <li v-for="job in orderedJobs" :key="job.id">
                 <h2>{{ job.title }} at {{ job.location }}</h2>
                 <div class="salary">
+                    <img src="../assets/rupee.svg" alt="rupee icon" />
                     <p>{{ job.salary }} rupees</p>
                 </div>
                 <div class="description">
                     <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Soluta laudantium porro similique voluptatem quia cum cupiditate illum explicabo vitae, officiis delectus asperiores eligendi perspiciatis iusto accusantium voluptas temporibus eius quisquam.</p>
                 </div>
             </li>
-        </ul>
+        </transition-group>
             
     </div>
 
@@ -67,7 +68,7 @@ export default defineComponent({
   .job-list h2 {
     margin: 0 0 10px;
     text-transform: capitalize;
-  }
+  }  
   .salary {
     display: flex;
   }
@@ -78,5 +79,8 @@ export default defineComponent({
     color: #17bf66;
     font-weight: bold;
     margin: 10px 4px;
+  }
+  .list-move {
+    transition: all 1s;
   }
 </style>
