@@ -46,3 +46,4 @@ export default class ThePractice extends Vue {
 <style scoped lang="scss">
 
 </style>
+
