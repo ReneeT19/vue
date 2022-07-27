@@ -1,12 +1,20 @@
 <template>
   <div class="app">
+    <header>
+      <div class="order">
+        <button @click="handleClick('title')">Order by title</button>   
+        <button @click="handleClick('salary')">Order by salary</button>
+        <button @click="handleClick('location')">Order by location</button>
+      </div>
+    </header>
     <!-- demo code -->
     <!-- <p>{{ name }} - {{ age }}</p>
     <button @click="changeName('Zelda')">change name</button>
     <button @click="changeAge(30)">change age</button> -->
 
     <!-- <p> {{ jobs[0].location }} </p> -->
-    <JobList :jobs="jobs"/>
+    <!-- returned order below and pass it here as a prop inside JobList component -->
+    <JobList :jobs="jobs" :order="order"/> 
 
   </div>
 </template>
@@ -15,6 +23,7 @@
 import { defineComponent, reactive, toRefs, ref } from 'vue';
 import Job from '@/types/Job'
 import JobList from './components/JobList.vue'
+import OrderTerm from './types/OrderTerm';
 
 //Options API
 
@@ -70,8 +79,12 @@ export default defineComponent({
       { title: 'prison guard', location: 'gerudo valley', salary: 32000, id: '5' }
     ])
     //pass jobs as props to print on the browser
-
-    return { jobs }
+    //create function, return it, and pass it in the template
+    const order = ref<OrderTerm>('title')
+    const handleClick = (term: OrderTerm) => {
+      order.value = term
+    }
+    return { jobs, handleClick, order }
   },
   // methods: {//specify the type of name to be string
   //   changeName(name: string) {
@@ -89,5 +102,20 @@ export default defineComponent({
 
 
 <style>
-
+header {
+    text-align: center;
+  }
+  header .order {
+    margin-top: 20px;
+  }
+  button {
+    margin: 0 10px;
+    color: #1195c9;
+    border: 3px solid #1195c9;
+    background: #d5f0ff;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+  }
 </style>
