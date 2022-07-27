@@ -5,7 +5,8 @@
     <button @click="changeName('Zelda')">change name</button>
     <button @click="changeAge(30)">change age</button> -->
 
-    <p> {{ jobs[0].location }} </p>
+    <!-- <p> {{ jobs[0].location }} </p> -->
+    <JobList :jobs="jobs"/>
 
   </div>
 </template>
@@ -13,6 +14,7 @@
 <script lang="ts">
 import { defineComponent, reactive, toRefs, ref } from 'vue';
 import Job from '@/types/Job'
+import JobList from './components/JobList.vue'
 
 //Options API
 
@@ -41,7 +43,7 @@ import Job from '@/types/Job'
 //Composition API
 export default defineComponent({
   name: 'App',
-  components: {},
+  components: {JobList},
   setup() {
     // //using reactive
     // const state = reactive({
@@ -67,6 +69,7 @@ export default defineComponent({
       { title: 'fisherman', location: 'lake hylia', salary: 21000, id: '4' },
       { title: 'prison guard', location: 'gerudo valley', salary: 32000, id: '5' }
     ])
+    //pass jobs as props to print on the browser
 
     return { jobs }
   },
